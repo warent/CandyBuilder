@@ -5,11 +5,12 @@ CandyBuilder is a simple templating framework implementing [LightnCandy](https:/
 ## Features
 - Page structure management
 - Functional templating
+- Variable templating
 - YAML locale parsing
 - Automatic locale processing
 
 ## Version
-0.1.0 BETA
+v0.2.0-beta
 
 ## Tech
 
