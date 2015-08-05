@@ -40,8 +40,11 @@ $CANDY_PAGE_CONFIG = [
 					]
 				]
 			],
-			// example.home.candy has a lot to replace, but none of it is dynamic
-			// Therefore, all the replacement content is automatically loaded from the raw/locale/%language%/example.home.yaml
+			/*
+				example.home.candy has a lot to replace, but only one dynamic field
+				Therefore, all the replacement content is automatically loaded from the raw/locale/%language%/example.home.yaml
+				With the exception of 'version-num' which we replace with a variable (or a constant, in this case)
+			*/
 			'example.home' => [
 				'version-num' => [
 					'var' => 'v0.2.0-beta'
