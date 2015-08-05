@@ -53,14 +53,6 @@ class CandyBuilder {
 		// These are the HTML templates for parsing by CandyWrapper our LightnCandy Wrapper
 		foreach ($CANDY_PAGE_CONFIG[$this->page]['raws'] as $candyName=>$candyReplacements) {
 
-			
-			// If the "raw" is "fn" then we just append the results of the defined function instead of wrapping a whole candy
-			// TODO: Create a dynamic function array so functions can be defined outside of this class
-			if ($candyName == "fn") {
-				$built .= $this->$candyReplacements();
-				continue;
-			}
-
 			// Our {{handlebars}} to be replaced by LightnCandy are stored here
 			$replace = array();
 
