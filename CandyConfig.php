@@ -1,7 +1,7 @@
 <?php
 
 // CandyBuilder version
-$CB_VER = "v0.2.0 BETA";
+$CB_VER = "v0.2.0-beta";
 
 // We define all of our pages here. A full page with all included templates is known as a "Candy Bundle" or simply "bundle"
 $CANDY_PAGE_CONFIG = [
@@ -43,11 +43,11 @@ $CANDY_PAGE_CONFIG = [
 			/*
 				example.home.candy has a lot to replace, but only one dynamic field
 				Therefore, all the replacement content is automatically loaded from the raw/locale/%language%/example.home.yaml
-				With the exception of 'version-num' which we replace with a variable (or a constant, in this case)
+				With the exception of 'version-num' which we replace with a variable (constants will work as well)
 			*/
 			'example.home' => [
 				'version-num' => [
-					'var' => 'v0.2.0-beta'
+					'var' => $CB_VER
 				]
 			],
 			'example.foot' => []
