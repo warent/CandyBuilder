@@ -6,7 +6,7 @@ require_once("CandyConfig.php");
 
 class CandyBuilder {
 
-	public $targetCandyBundle, $functions = [], $locale;
+	public $targetCandyBundle, $locale;
 
 	/*
 	 * Essentially a glorified sprintf
@@ -37,6 +37,24 @@ class CandyBuilder {
 		}
 	}
 
+	/*
+		Argument 1: Candy to loop
+		Argument 1+n: Content to replace with
+	*/
+	public static function FUNC_LOOP() {
+		$args = func_get_args();
+
+		$candyName = $args[0];
+		$args = $args[1];
+
+		$processed = "";
+		foreach ($args as $content) {
+			$processed .= CandyWrapper::Wrap($candyName.".candy", $content);
+		}
+
+		return $processed;
+	}
+
 	function __construct($page, $directPageAccess = false) {
 
 		$this->page = $page;
@@ -64,7 +82,10 @@ class CandyBuilder {
 				foreach ($candyReplacements as $toReplace => $replaceFunction) {
 					// Perform each function to get the desired dynamic result
 					// and define it as the replacement for the handlebars {{$toReplace}}
-					$replace[$toReplace] = call_user_func_array($replaceFunction[0], $replaceFunction[1]);
+					$fn = $replaceFunction[0];
+					$args = $replaceFunction[1];
+
+					$replace[$toReplace] = call_user_func_array($fn, $args);
 				}
 			}
 
