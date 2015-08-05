@@ -1,13 +1,11 @@
 <?php
 
 use Symfony\Component\Yaml\Yaml;
-
-require_once("CandyConfig.php");
 require_once("vendor/autoload.php");
 
 class CandyBuilder {
 
-	public $targetCandyBundle, $locale;
+	public $locale, $candyConfig;
 
 	// Use the actual LightnCandy with our specified data
 	public static function Wrap($candy, $values) {
@@ -45,21 +43,19 @@ class CandyBuilder {
 		return $processed;
 	}
 
-	function __construct($page, $directPageAccess = false) {
+	function __construct($candyConfig) {
 
-		$this->page = $page;
-		$this->directPageAccess = $directPageAccess;
+		$this->candyConfig = $candyConfig;
+
 	}
 
-	function __toString() {
-
-		global $CANDY_PAGE_CONFIG;
+	function build($candyBundle) {
 
 		$built = "";
 
 		// We scan all of our page's configured "Raw candies".
 		// These are the HTML templates for parsing by our LightnCandy wrapper
-		foreach ($CANDY_PAGE_CONFIG[$this->page]['raws'] as $candyName=>$candyReplacements) {
+		foreach ($this->candyConfig[$candyBundle]['raws'] as $candyName=>$candyReplacements) {
 
 			// Our {{handlebars}} to be replaced by LightnCandy are stored here
 			$replace = array();

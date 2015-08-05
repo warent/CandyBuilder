@@ -1,10 +1,16 @@
 <?php
 
+/*
+	This file specifically is arbitrary and not necessary
+	For the purposes of the example, all config data is stored here
+	Config data may be kept elsewhere to eliminate this file
+*/
+
 // CandyBuilder version
 $CB_VER = "v0.2.0-beta";
 
 // We define all of our pages here. A full page with all included templates is known as a "Candy Bundle" or simply "bundle"
-$CANDY_PAGE_CONFIG = [
+$candy_config = [
 
 	// At the first level we have the name of the bundle
 	'home' => [
