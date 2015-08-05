@@ -7,8 +7,15 @@ class CandyBuilder {
 
 	public $locale, $candyConfig;
 
+	// Load up our locale automagically for each raw candy
+	private function WrapLocale(&$toWrap, $candyName) {
+		if (file_exists("./raw/locale/".$this->locale."/".$candyName.".yaml")) {
+			$toWrap = array_merge($toWrap, Yaml::parse(file_get_contents("./raw/locale/".$this->locale."/".$candyName.".yaml")));
+		}
+	}
+
 	// Use the actual LightnCandy with our specified data
-	public static function Wrap($candy, $values) {
+	public static function FN_WRAP($candy, $values) {
 
 		$rawCandy = file_get_contents("./raw/candy/" . $candy);
 		$processedCandy = LightnCandy::compile($rawCandy, ['flags' => LightnCandy::FLAG_NOESCAPE]);
@@ -16,13 +23,6 @@ class CandyBuilder {
 
 		return $wrappedCandy($values);
 
-	}
-
-	// Load up our locale automagically for each raw candy
-	private function WrapLocale(&$toWrap, $candyName) {
-		if (file_exists("./raw/locale/".$this->locale."/".$candyName.".yaml")) {
-			$toWrap = array_merge($toWrap, Yaml::parse(file_get_contents("./raw/locale/".$this->locale."/".$candyName.".yaml")));
-		}
 	}
 
 	/*
@@ -37,11 +37,12 @@ class CandyBuilder {
 
 		$processed = "";
 		foreach ($args as $content) {
-			$processed .= CandyBuilder::Wrap($candyName.".candy", $content);
+			$processed .= CandyBuilder::FN_WRAP($candyName.".candy", $content);
 		}
 
 		return $processed;
 	}
+
 
 	function __construct($candyConfig) {
 
@@ -49,7 +50,7 @@ class CandyBuilder {
 
 	}
 
-	function build($candyBundle) {
+	public function build($candyBundle) {
 
 		$built = "";
 
@@ -87,7 +88,7 @@ class CandyBuilder {
 			if (isset($this->locale)) $this->WrapLocale($replace, $candyName);
 
 			// Wrap up our raw candy and push it for output
-			$built .= CandyBuilder::Wrap($candyName.".candy", $replace);
+			$built .= CandyBuilder::FN_WRAP($candyName.".candy", $replace);
 		}
 
 		return $built;
