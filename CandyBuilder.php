@@ -45,7 +45,7 @@ class CandyBuilder {
 
 	function __toString() {
 
-		global $CANDY_LOCALE, $CANDY_LANGUAGE, $CANDY_PAGE_CONFIG, $J_LOCALE, $J_LANGUAGE;
+		global $CANDY_PAGE_CONFIG;
 
 		$built = "";
 
