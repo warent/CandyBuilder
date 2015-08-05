@@ -5,6 +5,6 @@ require_once("CandyBuilder.php");
 
 $TestBuilder = new CandyBuilder($candy_config);
 $TestBuilder->locale = "en-us";
-echo $TestBuilder->Build("home");
+echo $TestBuilder->build("home");
 
 ?>

@@ -65,12 +65,12 @@ class CandyBuilder {
 			 * If the string is static, we must define it in config.php $J_LOCALE
 			 */
 			if (count($candyReplacements) > 0) {
-				foreach ($candyReplacements as $toReplace => $replaceVal) {
-					if (array_key_exists("fn", $replaceVal)) {
+				foreach ($candyReplacements as $toReplace => $replaceConfig) {
+					if (array_key_exists("fn", $replaceConfig)) {
 					// Perform each function to get the desired dynamic result
 					// and define it as the replacement for the handlebars {{$toReplace}}
-					$fn = $replaceVal["fn"];
-					$args = $replaceVal["args"];
+					$fn = $replaceConfig["fn"];
+					$args = $replaceConfig["args"];
 
 					if (substr($fn, 0, 2) == "::") {
 						$fn = "CandyBuilder" . $fn;
@@ -78,7 +78,7 @@ class CandyBuilder {
 
 					$replace[$toReplace] = call_user_func_array($fn, $args);
 					} else {
-						$replace[$toReplace] = $replaceVal["var"];
+						$replace[$toReplace] = $replaceConfig["var"];
 					}
 				}
 			}
