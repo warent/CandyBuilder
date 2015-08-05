@@ -3,31 +3,21 @@
 use Symfony\Component\Yaml\Yaml;
 
 require_once("CandyConfig.php");
+require_once("vendor/autoload.php");
 
 class CandyBuilder {
 
 	public $targetCandyBundle, $locale;
 
-	/*
-	 * Essentially a glorified sprintf
-	 * except that you can repeat the iteration
-	 * to create self-similar replicated data.
-	 *
-	 * First argument is always the input string, using sprintf syntax
-	 * Additional arguments accepts an indefinite number of arrays as the format
-	 */
-	public static function ShortWrap() {
-		$args = func_get_args();
-		$wrapWith = $args[0];
-		$args = array_pop($args);
-		$output = "";
+	// Use the actual LightnCandy with our specified data
+	public static function Wrap($candy, $values) {
 
-		foreach ($args as $dataToWrap) {
-			if (!is_array($dataToWrap)) $dataToWrap = array($dataToWrap);
-			$output .= vsprintf($wrapWith, $dataToWrap);
-		}
+		$rawCandy = file_get_contents("./raw/candy/" . $candy);
+		$processedCandy = LightnCandy::compile($rawCandy, ['flags' => LightnCandy::FLAG_NOESCAPE]);
+		$wrappedCandy = LightnCandy::prepare($processedCandy);
 
-		return $output;
+		return $wrappedCandy($values);
+
 	}
 
 	// Load up our locale automagically for each raw candy
@@ -49,7 +39,7 @@ class CandyBuilder {
 
 		$processed = "";
 		foreach ($args as $content) {
-			$processed .= CandyWrapper::Wrap($candyName.".candy", $content);
+			$processed .= CandyBuilder::Wrap($candyName.".candy", $content);
 		}
 
 		return $processed;
@@ -68,7 +58,7 @@ class CandyBuilder {
 		$built = "";
 
 		// We scan all of our page's configured "Raw candies".
-		// These are the HTML templates for parsing by CandyWrapper our LightnCandy Wrapper
+		// These are the HTML templates for parsing by our LightnCandy wrapper
 		foreach ($CANDY_PAGE_CONFIG[$this->page]['raws'] as $candyName=>$candyReplacements) {
 
 			// Our {{handlebars}} to be replaced by LightnCandy are stored here
@@ -93,7 +83,7 @@ class CandyBuilder {
 			if (isset($this->locale)) $this->WrapLocale($replace, $candyName);
 
 			// Wrap up our raw candy and push it for output
-			$built .= CandyWrapper::Wrap($candyName.".candy", $replace);
+			$built .= CandyBuilder::Wrap($candyName.".candy", $replace);
 		}
 
 		return $built;

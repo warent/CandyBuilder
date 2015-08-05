@@ -1,7 +1,5 @@
 <?php
 
-require_once ('CandyWrapper.php');
-
 // We define all of our pages here. A full page with all included templates is known as a "Candy Bundle" or simply "bundle"
 $CANDY_PAGE_CONFIG = [
 
