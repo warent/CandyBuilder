@@ -76,10 +76,11 @@ class CandyBuilder {
 				}
 			}
 
-			$this->WrapLocale($replace, $candyName);
+			// If we have a locale set, go ahead and process it here
+			if (isset($this->locale)) $this->WrapLocale($replace, $candyName);
 
 			// Wrap up our raw candy and push it for output
-			if (isset($this->locale)) $built .= CandyWrapper::Wrap($candyName.".candy", $replace);
+			$built .= CandyWrapper::Wrap($candyName.".candy", $replace);
 		}
 
 		return $built;
