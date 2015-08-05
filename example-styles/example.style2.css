@@ -1,0 +1,30 @@
+div {
+	text-align: center;
+}
+
+div span {
+	display: inline-block;
+    text-align: left;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    max-width: 50vw;
+    min-width: 600px;
+}
+
+div span h1 {
+    margin: 0 0 15px 0;
+    border-bottom: 1px solid black;
+}
+
+div span p {
+    margin: 0 0 15px 0;
+}
+
+ol {
+    display: block;
+    margin-left: 2em;
+    margin-bottom: 1em;
+}

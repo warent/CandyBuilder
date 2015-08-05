@@ -1,0 +1,21 @@
+title: 'CandyBuilder'
+title-text: >
+  CandyBuilder is a simple templating framework implementing <a href="https://github.com/zordius/lightncandy" target="_blank">LightnCandy</a>. 
+  CandyBuilder allows you to define all of your pages as skeleton structures formed by templates. 
+  Templated data is replaced by a specified locale which is automatically located, otherwise replaced by a custom function--
+  alowing you to remove all that messy php from your templates altogether using raw html and moustache syntax.
+features: 'Features'
+feature-1: 'Page structure management'
+feature-2: 'Functional templating'
+feature-3: 'YAML locale parsing'
+feature-4: 'Automatic locale processing'
+version: 'Version'
+version-num: '0.1.0 BETA'
+tech: 'Tech'
+tech-explained: 'CandyBuilder only uses a couple packages to work correctly,'
+tech-1: '[Behat] - Behavioral testing environment'
+tech-2:	'[LightnCandy] - php port of handlebars.js and moustache.js'
+tech-3: '[Symphony/Yaml] - For parsing locale YAML files'
+tech-self: >
+  And of course CandyBuilder itself is open source with a
+  <a href="https://github.com/warent/candybuilder" target="_blank">public repository</a> on GitHub.

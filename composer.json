@@ -1,0 +1,7 @@
+{
+    "require": {
+        "Behat/Behat": "^3.0",
+        "zordius/lightncandy": "^0.22.0",
+        "symfony/yaml": "^2.7"
+    }
+}

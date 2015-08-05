@@ -1,0 +1,30 @@
+<div>
+<span>
+<h1>{{title}}</h1>
+<p>{{title-text}}</p>
+
+<h1>{{features}}</h1>
+<p>
+	<ol>
+		<li>{{feature-1}}</li>
+		<li>{{feature-2}}</li>
+		<li>{{feature-3}}</li>
+		<li>{{feature-4}}</li>
+	</ol>
+</p>
+
+<h1>{{version}}</h1>
+<p>{{version-num}}</h1>
+
+<h1>{{tech}}</h1>
+<p>
+	{{tech-explained}}
+	<ol>
+		<li>{{tech-1}}</li>
+		<li>{{tech-2}}</li>
+		<li>{{tech-3}}</li>
+	</ol>
+	{{tech-self}}
+</p>
+</span>
+</div>
