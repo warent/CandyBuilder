@@ -31,7 +31,7 @@ class CandyBuilder {
 		Argument 1: Candy to loop
 		Argument 1+n: Content to replace with
 	*/
-	public static function FUNC_LOOP() {
+	public static function FN_LOOP() {
 		$args = func_get_args();
 
 		$candyName = $args[0];
@@ -69,13 +69,21 @@ class CandyBuilder {
 			 * If the string is static, we must define it in config.php $J_LOCALE
 			 */
 			if (count($candyReplacements) > 0) {
-				foreach ($candyReplacements as $toReplace => $replaceFunction) {
+				foreach ($candyReplacements as $toReplace => $replaceVal) {
+					if (array_key_exists("fn", $replaceVal)) {
 					// Perform each function to get the desired dynamic result
 					// and define it as the replacement for the handlebars {{$toReplace}}
-					$fn = $replaceFunction[0];
-					$args = $replaceFunction[1];
+					$fn = $replaceVal["fn"];
+					$args = $replaceVal["args"];
+
+					if (substr($fn, 0, 2) == "::") {
+						$fn = "CandyBuilder" . $fn;
+					}
 
 					$replace[$toReplace] = call_user_func_array($fn, $args);
+					} else {
+						$replace[$toReplace] = $replaceVal["var"];
+					}
 				}
 			}
 
