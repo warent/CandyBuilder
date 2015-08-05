@@ -38,7 +38,7 @@ $candy_config = [
 				'styles' => [
 					"fn" 	=> "::FN_LOOP",
 					"args" 	=> [	
-						'example.css',
+						'example.css', // Remember, this refers to the file raw/candy/example.css.candy
 						[
 							[ 'href' => './example-styles/example.style.css'],
 							[ 'href' => './example-styles/example.style2.css']
