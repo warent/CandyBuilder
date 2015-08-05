@@ -5,12 +5,6 @@ $CANDY_PAGE_CONFIG = [
 
 	// At the first level we have the name of the bundle
 	'home' => [
-
-		// We define our stylesheets here
-		'styles' => [
-			'Main'
-		],
-
 		/*
 			We define our raw candies here
 			It's important to note that these directly reference the files contained in the "raws" directory
