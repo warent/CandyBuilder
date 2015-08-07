@@ -40,7 +40,7 @@ $candy_config = [
 					The key of the first element in the array tells us if its a function (fn) or variable (var)
 				*/
 				'styles' => [
-					"fn" 	=> "::FN_LOOP",
+					"fn" 	=> "::FN_REPEAT",
 					"args" 	=> [	
 						'example.css', // Remember, this refers to the file raw/candy/example.css.candy
 						[

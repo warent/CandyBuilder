@@ -26,10 +26,9 @@ class CandyBuilder {
 	}
 
 	/*
-		Argument 1: Candy to loop
-		Argument 1+n: Content to replace with
+		Repeat a specific candy for the number of given argument arrays
 	*/
-	public function FN_LOOP($args) {
+	public function FN_REPEAT($args) {
 
 		$candyName = $args[0];
 		$args = $args[1];
@@ -94,7 +93,7 @@ class CandyBuilder {
 			if (isset($this->locale)) $this->WrapLocale($replace, $candyName);
 
 			// Wrap up our raw candy and push it for output
-			$built .= CandyBuilder::FN_WRAP($candyName.".candy", $replace);
+			$built .= $this->FN_WRAP($candyName.".candy", $replace);
 		}
 
 		return $built;
