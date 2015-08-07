@@ -76,7 +76,6 @@ class CandyBuilder {
 
 		$built = "";
 		if (!$raw) $candyBundle = $this->candyConfig[$candyBundle]['raws'];
-		print_r($candyBundle);
 
 		// We scan all of our page's configured "Raw candies".
 		// These are the HTML templates for parsing by our LightnCandy wrapper
