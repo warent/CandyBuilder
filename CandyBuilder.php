@@ -65,9 +65,9 @@ class CandyBuilder {
 			} else if (array_key_exists("var", $replaceConfig)) {
 				// Variable or constant result
 				$replace[$toReplace] = $replaceConfig["var"];
-			} else if (array_key_exists("candy", $replaceConfig)) {
-				// Nested candy for recursion
-				$replace[$toReplace] = $this->build($replaceConfig["candy"], true);
+			} else if (array_key_exists("bundle", $replaceConfig)) {
+				// Nested bundle for recursion
+				$replace[$toReplace] = $this->build($replaceConfig["bundle"], true);
 			}
 		}
 	}
@@ -76,6 +76,7 @@ class CandyBuilder {
 
 		$built = "";
 		if (!$raw) $candyBundle = $this->candyConfig[$candyBundle]['raws'];
+		print_r($candyBundle);
 
 		// We scan all of our page's configured "Raw candies".
 		// These are the HTML templates for parsing by our LightnCandy wrapper

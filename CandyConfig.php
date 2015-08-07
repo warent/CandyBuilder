@@ -65,7 +65,7 @@ $candy_config = [
 						Here we can see the new recursive candy nesting in action.
 						You can replace one field with a whole other candy to be processed
 					*/
-					'candy' => [
+					'bundle' => [
 						"example.features" => [
 							'feature-2' => [
 								'var' => $CB_FEAT2
