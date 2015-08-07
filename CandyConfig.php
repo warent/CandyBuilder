@@ -44,8 +44,8 @@ $candy_config = [
 					"args" 	=> [	
 						'example.css', // Remember, this refers to the file raw/candy/example.css.candy
 						[
-							[ 'href' => './example-styles/example.style.css'],
-							[ 'href' => './example-styles/example.style2.css']
+							[ 'href' => ['var' => './example-styles/example.style.css']],
+							[ 'href' => ['var' => './example-styles/example.style2.css']]
 						]
 					]
 				],

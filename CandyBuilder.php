@@ -15,7 +15,7 @@ class CandyBuilder {
 	}
 
 	// Use the actual LightnCandy with our specified data
-	public static function FN_WRAP($candy, $values) {
+	public function FN_WRAP($candy, $values) {
 
 		$rawCandy = file_get_contents("./raw/candy/" . $candy);
 		$processedCandy = LightnCandy::compile($rawCandy, ['flags' => LightnCandy::FLAG_NOESCAPE]);
@@ -29,15 +29,14 @@ class CandyBuilder {
 		Argument 1: Candy to loop
 		Argument 1+n: Content to replace with
 	*/
-	public static function FN_LOOP() {
-		$args = func_get_args();
+	public function FN_LOOP($args) {
 
 		$candyName = $args[0];
 		$args = $args[1];
 
 		$processed = "";
 		foreach ($args as $content) {
-			$processed .= CandyBuilder::FN_WRAP($candyName.".candy", $content);
+			$processed .= $this->build([$candyName => $content], true);
 		}
 
 		return $processed;
@@ -58,9 +57,12 @@ class CandyBuilder {
 				$args = $replaceConfig["args"];
 
 				if (substr($fn, 0, 2) == "::") {
-					$fn = "CandyBuilder" . $fn;
+					$fn = substr($fn, 2);
+					$replace[$toReplace] = $this->$fn($args);
+				} else {
+					$replace[$toReplace] = call_user_func_array($fn, $args);
 				}
-				$replace[$toReplace] = call_user_func_array($fn, $args);
+				
 			} else if (array_key_exists("var", $replaceConfig)) {
 				// Variable or constant result
 				$replace[$toReplace] = $replaceConfig["var"];
