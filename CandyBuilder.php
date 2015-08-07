@@ -50,13 +50,35 @@ class CandyBuilder {
 
 	}
 
-	public function build($candyBundle) {
+	private function processDynamicContent($candyReplacements, &$replace) {
+		foreach ($candyReplacements as $toReplace => $replaceConfig) {
+			if (array_key_exists("fn", $replaceConfig)) {
+				// Perform each function to get the desired dynamic result
+				$fn = $replaceConfig["fn"];
+				$args = $replaceConfig["args"];
+
+				if (substr($fn, 0, 2) == "::") {
+					$fn = "CandyBuilder" . $fn;
+				}
+				$replace[$toReplace] = call_user_func_array($fn, $args);
+			} else if (array_key_exists("var", $replaceConfig)) {
+				// Variable or constant result
+				$replace[$toReplace] = $replaceConfig["var"];
+			} else if (array_key_exists("candy", $replaceConfig)) {
+				// Nested candy for recursion
+				$replace[$toReplace] = $this->build($replaceConfig["candy"], true);
+			}
+		}
+	}
+
+	public function build($candyBundle, $raw=false) {
 
 		$built = "";
+		if (!$raw) $candyBundle = $this->candyConfig[$candyBundle]['raws'];
 
 		// We scan all of our page's configured "Raw candies".
 		// These are the HTML templates for parsing by our LightnCandy wrapper
-		foreach ($this->candyConfig[$candyBundle]['raws'] as $candyName=>$candyReplacements) {
+		foreach ($candyBundle as $candyName=>$candyReplacements) {
 
 			// Our {{handlebars}} to be replaced by LightnCandy are stored here
 			$replace = array();
@@ -65,25 +87,7 @@ class CandyBuilder {
 			 * The only time anything should ever be replaced is if it's a dynamic variable.
 			 * If the string is static, we must define it in config.php $J_LOCALE
 			 */
-			if (count($candyReplacements) > 0) {
-				foreach ($candyReplacements as $toReplace => $replaceConfig) {
-					if (array_key_exists("fn", $replaceConfig)) {
-					// Perform each function to get the desired dynamic result
-					// and define it as the replacement for the handlebars {{$toReplace}}
-					$fn = $replaceConfig["fn"];
-					$args = $replaceConfig["args"];
-
-					if (substr($fn, 0, 2) == "::") {
-						$fn = "CandyBuilder" . $fn;
-					}
-
-					$replace[$toReplace] = call_user_func_array($fn, $args);
-					} else {
-						$replace[$toReplace] = $replaceConfig["var"];
-					}
-				}
-			}
-
+			if (count($candyReplacements) > 0) $this->processDynamicContent($candyReplacements, $replace);
 			// If we have a locale set, go ahead and process it here
 			if (isset($this->locale)) $this->WrapLocale($replace, $candyName);
 

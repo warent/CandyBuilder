@@ -9,6 +9,10 @@
 // CandyBuilder version
 $CB_VER = "v0.2.0-beta";
 
+// Features for demonstration of recursion
+$CB_FEAT2 = "Functional templating";
+$CB_FEAT3 = "Variable templating";
+
 // We define all of our pages here. A full page with all included templates is known as a "Candy Bundle" or simply "bundle"
 $candy_config = [
 
@@ -44,7 +48,7 @@ $candy_config = [
 							[ 'href' => './example-styles/example.style2.css']
 						]
 					]
-				]
+				],
 			],
 			/*
 				example.home.candy has a lot to replace, but only one dynamic field
@@ -54,6 +58,24 @@ $candy_config = [
 			'example.home' => [
 				'version-num' => [
 					'var' => $CB_VER
+				],
+
+				'features' => [
+					/*
+						Here we can see the new recursive candy nesting in action.
+						You can replace one field with a whole other candy to be processed
+					*/
+					'candy' => [
+						"example.features" => [
+							'feature-2' => [
+								'var' => $CB_FEAT2
+							],
+
+							'feature-3' => [
+								'var' => $CB_FEAT3
+							]
+						]
+					]
 				]
 			],
 			'example.foot' => []

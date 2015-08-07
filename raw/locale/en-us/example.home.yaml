@@ -4,12 +4,6 @@ title-text: >
   CandyBuilder allows you to define all of your pages as skeleton structures formed by templates. 
   Templated data is replaced by a specified locale which is automatically located, otherwise replaced by a custom function--
   alowing you to remove all that messy php from your templates altogether using raw html and moustache syntax.
-features: 'Features'
-feature-1: 'Page structure management'
-feature-2: 'Functional templating'
-feature-3: 'Variable templating'
-feature-4: 'YAML locale parsing'
-feature-5: 'Automatic locale processing'
 version: 'Version'
 tech: 'Tech'
 tech-explained: 'CandyBuilder only uses a couple packages to work correctly,'

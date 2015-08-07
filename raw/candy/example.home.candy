@@ -3,16 +3,7 @@
 <h1>{{title}}</h1>
 <p>{{title-text}}</p>
 
-<h1>{{features}}</h1>
-<p>
-	<ol>
-		<li>{{feature-1}}</li>
-		<li>{{feature-2}}</li>
-		<li>{{feature-3}}</li>
-		<li>{{feature-4}}</li>
-		<li>{{feature-5}}</li>
-	</ol>
-</p>
+{{features}}
 
 <h1>{{version}}</h1>
 <p>{{version-num}}</h1>

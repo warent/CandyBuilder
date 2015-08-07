@@ -1,0 +1,4 @@
+features: 'Features'
+feature-1: 'Page structure management'
+feature-4: 'YAML locale parsing'
+feature-5: 'Automatic locale processing'
