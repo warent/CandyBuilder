@@ -2,10 +2,11 @@
 
 use Symfony\Component\Yaml\Yaml;
 require_once("vendor/autoload.php");
+require_once("CandyBundler.php");
 
 class CandyBuilder {
 
-	public $locale, $candyConfig;
+	public $locale, $candyBundles;
 
 	// Load up our locale automagically for each raw candy
 	private function WrapLocale(&$toWrap, $candyName) {
@@ -42,9 +43,9 @@ class CandyBuilder {
 	}
 
 
-	function __construct($candyConfig) {
+	function __construct($candyBundles) {
 
-		$this->candyConfig = $candyConfig;
+		$this->candyBundles = $candyBundles;
 
 	}
 
@@ -75,7 +76,7 @@ class CandyBuilder {
 	public function build($candyBundle, $raw=false) {
 
 		$built = "";
-		if (!$raw) $candyBundle = $this->candyConfig[$candyBundle]['raws'];
+		if (!$raw) $candyBundle = $this->candyBundles[$candyBundle]['raws'];
 
 		// We scan all of our page's configured "Raw candies".
 		// These are the HTML templates for parsing by our LightnCandy wrapper
@@ -97,10 +98,21 @@ class CandyBuilder {
 		}
 
 		return $built;
+	}
 
+	###################################################################################
+	#
+	# NOTICE
+	#
+	# The bundler provides custom error handling, additional verbosity, and guaranteed backwards compatibility
+	# However, this comes at the expense of significant resources
+	# If trying to use resources sparingly, consider referencing $candyBundles directly
+	#
+	###################################################################################
+	public function Bundler() {
+		return new CandyBundler($this);
 	}
 
 }
-
 
 ?>

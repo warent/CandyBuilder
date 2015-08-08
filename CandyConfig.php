@@ -54,12 +54,9 @@ $candy_config = [
 				example.home.candy has a lot to replace, but only one dynamic field
 				Therefore, all the replacement content is automatically loaded from the raw/locale/%language%/example.home.yaml
 				With the exception of 'version-num' which we replace with a variable (constants will work as well)
+				example.php shows use of the verbose bundler to insert the version number
 			*/
 			'example.home' => [
-				'version-num' => [
-					'var' => $CB_VER
-				],
-
 				'features' => [
 					/*
 						Here we can see the new recursive candy nesting in action.
